@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Pawsome Rescue - Find Your Perfect Companion</title>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f5f7fa;
+            --bg-gradient: linear-gradient(135deg, var(--bg-light) 0%, #c3cfe2 100%);
+            --header-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            --success-gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--header-gradient);
+            color: white;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 300;
+        }
+
+        header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .section h2 {
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.75rem;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-group input, .filter-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .dogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .dog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .dog-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .dog-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 1.6rem;
+        }
+
+        .dog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .personality {
+            background: #f7fafc;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+        
+        .personality strong { color: var(--text-dark); }
+
+        .adopt-btn {
+            background: var(--success-gradient);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .adopt-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        
+        #no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 2.5rem;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.4s ease;
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+        }
+        
+        #modal-dog-name {
+            color: var(--primary-color);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🐾 NYC Pawsome Rescue</h1>
+        <p>Your new best friend is waiting. Find them today!</p>
+    </header>
+
+    <main class="container">
+        <section class="section" id="adoption-center">
+            <h2>Find a Friend</h2>
+            <form class="filters" id="filters">
+                <div class="filter-group">
+                    <label for="search-input">Search by Name or Breed</label>
+                    <input type="text" id="search-input" placeholder="e.g., Bella, Terrier">
+                </div>
+                <div class="filter-group">
+                    <label for="age-filter">Age</label>
+                    <select id="age-filter">
+                        <option value="all">All Ages</option>
+                        <option value="puppy">Puppy (0-1 yrs)</option>
+                        <option value="adult">Adult (2-7 yrs)</option>
+                        <option value="senior">Senior (8+ yrs)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="size-filter">Size</label>
+                    <select id="size-filter">
+                        <option value="all">All Sizes</option>
+                        <option value="small">Small (0-25 lbs)</option>
+                        <option value="medium">Medium (26-60 lbs)</option>
+                        <option value="large">Large (61+ lbs)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="breed-filter">Breed</label>
+                    <select id="breed-filter">
+                        <option value="all">All Breeds</option>
+                    </select>
+                </div>
+            </form>
+            
+            <div class="dogs-grid" id="dogs-grid">
+                <!-- Dog cards will be dynamically inserted here by JavaScript -->
+            </div>
+            <p id="no-results">No dogs match your criteria. Try broadening your search!</p>
+        </section>
+    </main>
+    
+    <!-- Adoption Modal -->
+    <div id="adoption-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Adoption Inquiry</h2>
+            <p>You've expressed interest in <strong id="modal-dog-name">a dog</strong>! Please contact us to proceed with the adoption process.</p>
+            <br>
+            <p><strong>Email:</strong> adopt@nycpaws.org</p>
+            <p><strong>Phone:</strong> (212) 555-PAWS</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> NYC Pawsome Rescue. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- DATA ---
+            // In a real application, this would come from a server/API
+            const dogData = [
+                { id: 1, name: 'Buddy', age: 2, breed: 'Golden Retriever Mix', weight: 65, personality: 'A gentle giant who loves kids and enjoys long walks in the park.', imgSrc: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=250&fit=crop' },
+                { id: 2, name: 'Bella', age: 3, breed: 'Beagle', weight: 24, personality: 'Loves to play and follow her nose. Needs a family to invest their love in.', imgSrc: 'https://images.unsplash.com/photo-1518717758336-259252355620?w=400&h=250&fit=crop' },
+                { id: 3, name: 'Max', age: 1, breed: 'German Shepherd', weight: 75, personality: 'Energetic and incredibly smart. Perfect for active individuals who love to train.', imgSrc: 'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400&h=250&fit=crop' },
+                { id: 4, name: 'Lucy', age: 8, breed: 'Poodle', weight: 48, personality: 'A sweet, calm senior looking for a cozy lap to curl up on.', imgSrc: 'https://images.unsplash.com/photo-1546272989-40c92939c6c2?w=400&h=250&fit=crop' },
+                { id: 5, name: 'Charlie', age: 5, breed: 'Terrier Mix', weight: 18, personality: 'A spunky and fearless companion who is full of character and loves squeaky toys.', imgSrc: 'https://images.unsplash.com/photo-1564A44122359-8923e54466d2?w=400&h=250&fit=crop' },
+                { id: 6, name: 'Daisy', age: 0.5, breed: 'Labrador Mix', weight: 22, personality: 'A goofy, playful puppy who is learning the ropes and loves everyone she meets.', imgSrc: 'https://images.unsplash.com/photo-15917682b4387-d42a1d28330a?w=400&h=250&fit=crop' }
+            ];
+
+            // --- DOM ELEMENTS ---
+            const dogGrid = document.getElementById('dogs-grid');
+            const searchInput = document.getElementById('search-input');
+            const ageFilter = document.getElementById('age-filter');
+            const sizeFilter = document.getElementById('size-filter');
+            const breedFilter = document.getElementById('breed-filter');
+            const noResultsMsg = document.getElementById('no-results');
+            const modal = document.getElementById('adoption-modal');
+            const modalDogName = document.getElementById('modal-dog-name');
+            const closeModalBtn = document.querySelector('.close-btn');
+            
+            // --- POPULATE BREED FILTER ---
+            const populateBreedFilter = () => {
+                const breeds = [...new Set(dogData.map(dog => dog.breed))];
+                breeds.forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed;
+                    option.textContent = breed;
+                    breedFilter.appendChild(option);
+                });
+            };
+
+            // --- RENDER FUNCTION ---
+            const renderDogs = (dogs) => {
+                dogGrid.innerHTML = ''; // Clear existing grid
+                if (dogs.length === 0) {
+                    noResultsMsg.style.display = 'block';
+                } else {
+                    noResultsMsg.style.display = 'none';
+                    dogs.forEach(dog => {
+                        const dogCard = document.createElement('div');
+                        dogCard.className = 'dog-card';
+                        
+                        // Determine age and size categories for tags
+                        let ageCategory = dog.age < 2 ? 'Puppy' : dog.age > 7 ? 'Senior' : 'Adult';
+                        let sizeCategory = dog.weight <= 25 ? 'Small' : dog.weight <= 60 ? 'Medium' : 'Large';
+
+                        dogCard.innerHTML = `
+                            <img src="${dog.imgSrc}" alt="${dog.name} - ${dog.breed}" loading="lazy">
+                            <div class="card-content">
+                                <h3>${dog.name}</h3>
+                                <div class="dog-tags">
+                                    <span class="tag">${ageCategory}</span>
+                                    <span class="tag">${sizeCategory}</span>
+                                    <span class="tag">${dog.breed}</span>
+                                </div>
+                                <div class="personality">
+                                    <strong>Personality:</strong> ${dog.personality}
+                                </div>
+                                <button class="adopt-btn" data-dog-id="${dog.id}">💝 Express Interest</button>
+                            </div>
+                        `;
+                        dogGrid.appendChild(dogCard);
+                    });
+                }
+            };
+            
+            // --- FILTERING LOGIC ---
+            const applyFilters = () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                const age = ageFilter.value;
+                const size = sizeFilter.value;
+                const breed = breedFilter.value;
+
+                let filteredDogs = dogData.filter(dog => {
+                    // Search filter
+                    const matchesSearch = dog.name.toLowerCase().includes(searchTerm) || dog.breed.toLowerCase().includes(searchTerm);
+
+                    // Age filter
+                    let matchesAge = true;
+                    if (age === 'puppy') matchesAge = dog.age <= 1;
+                    else if (age === 'adult') matchesAge = dog.age > 1 && dog.age < 8;
+                    else if (age === 'senior') matchesAge = dog.age >= 8;
+                    
+                    // Size filter
+                    let matchesSize = true;
+                    if (size === 'small') matchesSize = dog.weight <= 25;
+                    else if (size === 'medium') matchesSize = dog.weight > 25 && dog.weight <= 60;
+                    else if (size === 'large') matchesSize = dog.weight > 60;
+
+                    // Breed filter
+                    let matchesBreed = breed === 'all' || dog.breed === breed;
+
+                    return matchesSearch && matchesAge && matchesSize && matchesBreed;
+                });
+
+                renderDogs(filteredDogs);
+            };
+
+            // --- MODAL LOGIC ---
+            const openModal = (dogId) => {
+                const dog = dogData.find(d => d.id === parseInt(dogId));
+                if (dog) {
+                    modalDogName.textContent = dog.name;
+                    modal.style.display = 'block';
+                }
+            };
+
+            const closeModal = () => {
+                modal.style.display = 'none';
+            };
+
+            // --- EVENT LISTENERS ---
+            searchInput.addEventListener('input', applyFilters);
+            ageFilter.addEventListener('change', applyFilters);
+            sizeFilter.addEventListener('change', applyFilters);
+            breedFilter.addEventListener('change', applyFilters);
+            
+            dogGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('adopt-btn')) {
+                    const dogId = e.target.dataset.dogId;
+                    openModal(dogId);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // --- INITIALIZATION ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+            populateBreedFilter();
+            renderDogs(dogData); // Initial render of all dogs
+        });
+    </script>
+</body>
+</html>
