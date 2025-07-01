@@ -249,209 +249,206 @@
 </head>
 <body>
 
-    <header>
-        <h1>🐾 NYC Pawsome Rescue</h1>
-        <p>Your new best friend is waiting. Find them today!</p>
-    </header>
+<header>
+    <h1>🐾 NYC Pawsome Rescue</h1>
+    <p>Your new best friend is waiting. Find them today!</p>
+</header>
 
-    <main class="container">
-        <section class="section" id="adoption-center">
-            <h2>Find a Friend</h2>
-            <form class="filters" id="filters">
-                <div class="filter-group">
-                    <label for="search-input">Search by Name or Breed</label>
-                    <input type="text" id="search-input" placeholder="e.g., Bella, Terrier">
-                </div>
-                <div class="filter-group">
-                    <label for="age-filter">Age</label>
-                    <select id="age-filter">
-                        <option value="all">All Ages</option>
-                        <option value="puppy">Puppy (0-1 yrs)</option>
-                        <option value="adult">Adult (2-7 yrs)</option>
-                        <option value="senior">Senior (8+ yrs)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="size-filter">Size</label>
-                    <select id="size-filter">
-                        <option value="all">All Sizes</option>
-                        <option value="small">Small (0-25 lbs)</option>
-                        <option value="medium">Medium (26-60 lbs)</option>
-                        <option value="large">Large (61+ lbs)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="breed-filter">Breed</label>
-                    <select id="breed-filter">
-                        <option value="all">All Breeds</option>
-                    </select>
-                </div>
-            </form>
-            
-            <div class="dogs-grid" id="dogs-grid">
-                <!-- Dog cards will be dynamically inserted here by JavaScript -->
+<main class="container">
+    <section class="section" id="adoption-center">
+        <h2>Find a Friend</h2>
+        <form class="filters" id="filters">
+            <div class="filter-group">
+                <label for="search-input">Search by Name or Breed</label>
+                <input type="text" id="search-input" placeholder="e.g., Bella, Terrier">
             </div>
-            <p id="no-results">No dogs match your criteria. Try broadening your search!</p>
-        </section>
-    </main>
-    
-    <!-- Adoption Modal -->
-    <div id="adoption-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Adoption Inquiry</h2>
-            <p>You've expressed interest in <strong id="modal-dog-name">a dog</strong>! Please contact us to proceed with the adoption process.</p>
-            <br>
-            <p><strong>Email:</strong> adopt@nycpaws.org</p>
-            <p><strong>Phone:</strong> (212) 555-PAWS</p>
+            <div class="filter-group">
+                <label for="age-filter">Age</label>
+                <select id="age-filter">
+                    <option value="all">All Ages</option>
+                    <option value="puppy">Puppy (0-1 yrs)</option>
+                    <option value="adult">Adult (2-7 yrs)</option>
+                    <option value="senior">Senior (8+ yrs)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="size-filter">Size</label>
+                <select id="size-filter">
+                    <option value="all">All Sizes</option>
+                    <option value="small">Small (0-25 lbs)</option>
+                    <option value="medium">Medium (26-60 lbs)</option>
+                    <option value="large">Large (61+ lbs)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="sort-filter">Sort By</label>
+                <select id="sort-filter">
+                    <option value="default">Default</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="age-asc">Age: Low to High</option>
+                    <option value="age-desc">Age: High to Low</option>
+                </select>
+            </div>
+        </form>
+        
+        <div class="dogs-grid" id="dogs-grid">
+            <!-- Dog cards will be dynamically inserted here by JavaScript -->
         </div>
+        <p id="no-results">No dogs match your criteria. Try broadening your search!</p>
+    </section>
+</main>
+
+<!-- Adoption Modal -->
+<div id="adoption-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Adoption Inquiry</h2>
+        <p>You've expressed interest in <strong id="modal-dog-name">a dog</strong>! Please contact us to proceed with the adoption process.</p>
+        <br>
+        <p><strong>Email:</strong> adopt@nycpaws.org</p>
+        <p><strong>Phone:</strong> (212) 555-PAWS</p>
     </div>
+</div>
 
-    <footer>
-        <p>&copy; <span id="year"></span> NYC Pawsome Rescue. All Rights Reserved.</p>
-    </footer>
+<footer>
+    <p>&copy; <span id="year"></span> NYC Pawsome Rescue. All Rights Reserved.</p>
+</footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
 
-            // --- DATA ---
-            // In a real application, this would come from a server/API
-            const dogData = [
-                { id: 1, name: 'Buddy', age: 2, breed: 'Golden Retriever Mix', weight: 65, personality: 'A gentle giant who loves kids and enjoys long walks in the park.', imgSrc: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=250&fit=crop' },
-                { id: 2, name: 'Bella', age: 3, breed: 'Beagle', weight: 24, personality: 'Loves to play and follow her nose. Needs a family to invest their love in.', imgSrc: 'https://images.unsplash.com/photo-1518717758336-259252355620?w=400&h=250&fit=crop' },
-                { id: 3, name: 'Max', age: 1, breed: 'German Shepherd', weight: 75, personality: 'Energetic and incredibly smart. Perfect for active individuals who love to train.', imgSrc: 'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400&h=250&fit=crop' },
-                { id: 4, name: 'Lucy', age: 8, breed: 'Poodle', weight: 48, personality: 'A sweet, calm senior looking for a cozy lap to curl up on.', imgSrc: 'https://images.unsplash.com/photo-1546272989-40c92939c6c2?w=400&h=250&fit=crop' },
-                { id: 5, name: 'Charlie', age: 5, breed: 'Terrier Mix', weight: 18, personality: 'A spunky and fearless companion who is full of character and loves squeaky toys.', imgSrc: 'https://images.unsplash.com/photo-1564A44122359-8923e54466d2?w=400&h=250&fit=crop' },
-                { id: 6, name: 'Daisy', age: 0.5, breed: 'Labrador Mix', weight: 22, personality: 'A goofy, playful puppy who is learning the ropes and loves everyone she meets.', imgSrc: 'https://images.unsplash.com/photo-15917682b4387-d42a1d28330a?w=400&h=250&fit=crop' }
-            ];
+        // --- DATA ---
+        // In a real application, this would come from a server/API
+        const dogData = [
+            { id: 1, name: 'Buddy', age: 2, breed: 'Golden Retriever Mix', weight: 65, personality: 'A gentle giant who loves kids and enjoys long walks in the park.', imgSrc: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=250&fit=crop' },
+            { id: 2, name: 'Bella', age: 3, breed: 'Beagle', weight: 24, personality: 'Loves to play and follow her nose. Needs a family to invest their love in.', imgSrc: 'https://images.unsplash.com/photo-1518717758336-259252355620?w=400&h=250&fit=crop' },
+            { id: 3, name: 'Max', age: 1, breed: 'German Shepherd', weight: 75, personality: 'Energetic and incredibly smart. Perfect for active individuals who love to train.', imgSrc: 'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400&h=250&fit=crop' },
+            { id: 4, name: 'Lucy', age: 8, breed: 'Poodle', weight: 48, personality: 'A sweet, calm senior looking for a cozy lap to curl up on.', imgSrc: 'https://images.unsplash.com/photo-1546272989-40c92939c6c2?w=400&h=250&fit=crop' },
+            { id: 5, name: 'Charlie', age: 5, breed: 'Terrier Mix', weight: 18, personality: 'A spunky and fearless companion who is full of character and loves squeaky toys.', imgSrc: 'https://images.unsplash.com/photo-1564A44122359-8923e54466d2?w=400&h=250&fit=crop' },
+            { id: 6, name: 'Daisy', age: 0.5, breed: 'Labrador Mix', weight: 22, personality: 'A goofy, playful puppy who is learning the ropes and loves everyone she meets.', imgSrc: 'https://images.unsplash.com/photo-15917682b4387-d42a1d28330a?w=400&h=250&fit=crop' }
+        ];
 
-            // --- DOM ELEMENTS ---
-            const dogGrid = document.getElementById('dogs-grid');
-            const searchInput = document.getElementById('search-input');
-            const ageFilter = document.getElementById('age-filter');
-            const sizeFilter = document.getElementById('size-filter');
-            const breedFilter = document.getElementById('breed-filter');
-            const noResultsMsg = document.getElementById('no-results');
-            const modal = document.getElementById('adoption-modal');
-            const modalDogName = document.getElementById('modal-dog-name');
-            const closeModalBtn = document.querySelector('.close-btn');
-            
-            // --- POPULATE BREED FILTER ---
-            const populateBreedFilter = () => {
-                const breeds = [...new Set(dogData.map(dog => dog.breed))];
-                breeds.forEach(breed => {
-                    const option = document.createElement('option');
-                    option.value = breed;
-                    option.textContent = breed;
-                    breedFilter.appendChild(option);
-                });
-            };
-
-            // --- RENDER FUNCTION ---
-            const renderDogs = (dogs) => {
-                dogGrid.innerHTML = ''; // Clear existing grid
-                if (dogs.length === 0) {
-                    noResultsMsg.style.display = 'block';
-                } else {
-                    noResultsMsg.style.display = 'none';
-                    dogs.forEach(dog => {
-                        const dogCard = document.createElement('div');
-                        dogCard.className = 'dog-card';
-                        
-                        // Determine age and size categories for tags
-                        let ageCategory = dog.age < 2 ? 'Puppy' : dog.age > 7 ? 'Senior' : 'Adult';
-                        let sizeCategory = dog.weight <= 25 ? 'Small' : dog.weight <= 60 ? 'Medium' : 'Large';
-
-                        dogCard.innerHTML = `
-                            <img src="${dog.imgSrc}" alt="${dog.name} - ${dog.breed}" loading="lazy">
-                            <div class="card-content">
-                                <h3>${dog.name}</h3>
-                                <div class="dog-tags">
-                                    <span class="tag">${ageCategory}</span>
-                                    <span class="tag">${sizeCategory}</span>
-                                    <span class="tag">${dog.breed}</span>
-                                </div>
-                                <div class="personality">
-                                    <strong>Personality:</strong> ${dog.personality}
-                                </div>
-                                <button class="adopt-btn" data-dog-id="${dog.id}">💝 Express Interest</button>
-                            </div>
-                        `;
-                        dogGrid.appendChild(dogCard);
-                    });
-                }
-            };
-            
-            // --- FILTERING LOGIC ---
-            const applyFilters = () => {
-                const searchTerm = searchInput.value.toLowerCase();
-                const age = ageFilter.value;
-                const size = sizeFilter.value;
-                const breed = breedFilter.value;
-
-                let filteredDogs = dogData.filter(dog => {
-                    // Search filter
-                    const matchesSearch = dog.name.toLowerCase().includes(searchTerm) || dog.breed.toLowerCase().includes(searchTerm);
-
-                    // Age filter
-                    let matchesAge = true;
-                    if (age === 'puppy') matchesAge = dog.age <= 1;
-                    else if (age === 'adult') matchesAge = dog.age > 1 && dog.age < 8;
-                    else if (age === 'senior') matchesAge = dog.age >= 8;
+        // --- DOM ELEMENTS ---
+        const dogGrid = document.getElementById('dogs-grid');
+        const searchInput = document.getElementById('search-input');
+        const ageFilter = document.getElementById('age-filter');
+        const sizeFilter = document.getElementById('size-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const noResultsMsg = document.getElementById('no-results');
+        const modal = document.getElementById('adoption-modal');
+        const modalDogName = document.getElementById('modal-dog-name');
+        const closeModalBtn = document.querySelector('.close-btn');
+        
+        // --- RENDER FUNCTION ---
+        const renderDogs = (dogs) => {
+            dogGrid.innerHTML = ''; // Clear existing grid
+            if (dogs.length === 0) {
+                noResultsMsg.style.display = 'block';
+            } else {
+                noResultsMsg.style.display = 'none';
+                dogs.forEach(dog => {
+                    const dogCard = document.createElement('div');
+                    dogCard.className = 'dog-card';
                     
-                    // Size filter
-                    let matchesSize = true;
-                    if (size === 'small') matchesSize = dog.weight <= 25;
-                    else if (size === 'medium') matchesSize = dog.weight > 25 && dog.weight <= 60;
-                    else if (size === 'large') matchesSize = dog.weight > 60;
+                    // Determine age and size categories for tags
+                    let ageCategory = dog.age < 2 ? 'Puppy' : dog.age > 7 ? 'Senior' : 'Adult';
+                    let sizeCategory = dog.weight <= 25 ? 'Small' : dog.weight <= 60 ? 'Medium' : 'Large';
 
-                    // Breed filter
-                    let matchesBreed = breed === 'all' || dog.breed === breed;
-
-                    return matchesSearch && matchesAge && matchesSize && matchesBreed;
+                    dogCard.innerHTML = `
+                        <img src="${dog.imgSrc}" alt="${dog.name} - ${dog.breed}">
+                        <div class="card-content">
+                            <h3>${dog.name}</h3>
+                            <div class="dog-tags">
+                                <span class="tag">${ageCategory}</span>
+                                <span class="tag">${sizeCategory}</span>
+                                <span class="tag">${dog.breed}</span>
+                            </div>
+                            <div class="personality">
+                                <strong>Personality:</strong> ${dog.personality}
+                            </div>
+                            <button class="adopt-btn" data-dog-id="${dog.id}">💝 Express Interest</button>
+                        </div>
+                    `;
+                    dogGrid.appendChild(dogCard);
                 });
+            }
+        };
+        
+        // --- FILTERING AND SORTING LOGIC ---
+        const applyFilters = () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const age = ageFilter.value;
+            const size = sizeFilter.value;
+            const sortBy = sortFilter.value;
 
-                renderDogs(filteredDogs);
-            };
+            let filteredDogs = dogData.filter(dog => {
+                // Search filter
+                const matchesSearch = dog.name.toLowerCase().includes(searchTerm) || dog.breed.toLowerCase().includes(searchTerm);
 
-            // --- MODAL LOGIC ---
-            const openModal = (dogId) => {
-                const dog = dogData.find(d => d.id === parseInt(dogId));
-                if (dog) {
-                    modalDogName.textContent = dog.name;
-                    modal.style.display = 'block';
-                }
-            };
+                // Age filter
+                let matchesAge = true;
+                if (age === 'puppy') matchesAge = dog.age <= 1;
+                else if (age === 'adult') matchesAge = dog.age > 1 && dog.age < 8;
+                else if (age === 'senior') matchesAge = dog.age >= 8;
+                
+                // Size filter
+                let matchesSize = true;
+                if (size === 'small') matchesSize = dog.weight <= 25;
+                else if (size === 'medium') matchesSize = dog.weight > 25 && dog.weight <= 60;
+                else if (size === 'large') matchesSize = dog.weight > 60;
 
-            const closeModal = () => {
-                modal.style.display = 'none';
-            };
-
-            // --- EVENT LISTENERS ---
-            searchInput.addEventListener('input', applyFilters);
-            ageFilter.addEventListener('change', applyFilters);
-            sizeFilter.addEventListener('change', applyFilters);
-            breedFilter.addEventListener('change', applyFilters);
-            
-            dogGrid.addEventListener('click', (e) => {
-                if (e.target.classList.contains('adopt-btn')) {
-                    const dogId = e.target.dataset.dogId;
-                    openModal(dogId);
-                }
+                return matchesSearch && matchesAge && matchesSize;
             });
 
-            closeModalBtn.addEventListener('click', closeModal);
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
+            // Sorting logic
+            if (sortBy === 'name') {
+                filteredDogs.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'age-asc') {
+                filteredDogs.sort((a, b) => a.age - b.age);
+            } else if (sortBy === 'age-desc') {
+                filteredDogs.sort((a, b) => b.age - a.age);
+            }
 
-            // --- INITIALIZATION ---
-            document.getElementById('year').textContent = new Date().getFullYear();
-            populateBreedFilter();
-            renderDogs(dogData); // Initial render of all dogs
+            renderDogs(filteredDogs);
+        };
+
+        // --- MODAL LOGIC ---
+        const openModal = (dogId) => {
+            const dog = dogData.find(d => d.id === parseInt(dogId));
+            if (dog) {
+                modalDogName.textContent = dog.name;
+                modal.style.display = 'block';
+            }
+        };
+
+        const closeModal = () => {
+            modal.style.display = 'none';
+        };
+
+        // --- EVENT LISTENERS ---
+        searchInput.addEventListener('input', applyFilters);
+        ageFilter.addEventListener('change', applyFilters);
+        sizeFilter.addEventListener('change', applyFilters);
+        sortFilter.addEventListener('change', applyFilters);
+        
+        dogGrid.addEventListener('click', (e) => {
+            if (e.target.classList.contains('adopt-btn')) {
+                const dogId = e.target.dataset.dogId;
+                openModal(dogId);
+            }
         });
-    </script>
+
+        closeModalBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- INITIALIZATION ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+        renderDogs(dogData); // Initial render of all dogs
+    });
+</script>
 </body>
 </html>
