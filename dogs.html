@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Pawsome Rescue - Find Your Perfect Companion</title>
+    <title>Galactics Dog Rescue - Find Your Perfect Companion</title>
     <style>
         :root {
             --primary-color: #667eea;
@@ -17,13 +17,11 @@
             --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --card-hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
@@ -31,7 +29,6 @@
             background: var(--bg-gradient);
             min-height: 100vh;
         }
-
         header {
             background: var(--header-gradient);
             color: white;
@@ -39,23 +36,19 @@
             padding: 3rem 1.5rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
         header h1 {
             font-size: clamp(2rem, 5vw, 2.8rem);
             font-weight: 300;
         }
-
         header p {
             font-size: clamp(1rem, 2.5vw, 1.2rem);
             opacity: 0.9;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
         }
-
         .section {
             margin-bottom: 3rem;
             background: white;
@@ -63,7 +56,6 @@
             border-radius: 20px;
             box-shadow: var(--card-shadow);
         }
-
         .section h2 {
             color: var(--text-dark);
             border-bottom: 3px solid var(--primary-color);
@@ -71,14 +63,12 @@
             font-size: 2rem;
             margin-bottom: 2rem;
         }
-
         .filters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-        
         .filter-group input, .filter-group select {
             width: 100%;
             padding: 0.75rem;
@@ -93,13 +83,11 @@
             font-weight: 600;
             color: var(--text-light);
         }
-
         .dogs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
-
         .dog-card {
             background: white;
             border-radius: 20px;
@@ -109,38 +97,32 @@
             display: flex;
             flex-direction: column;
         }
-
         .dog-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--card-hover-shadow);
         }
-
         .dog-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
         }
-
         .card-content {
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
-
         .dog-card h3 {
             margin-bottom: 0.5rem;
             color: var(--text-dark);
             font-size: 1.6rem;
         }
-
         .dog-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
-
         .tag {
             background: var(--primary-color);
             color: white;
@@ -149,7 +131,6 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
-
         .personality {
             background: #f7fafc;
             padding: 0.75rem;
@@ -158,9 +139,7 @@
             margin: 1rem 0;
             flex-grow: 1;
         }
-        
         .personality strong { color: var(--text-dark); }
-
         .adopt-btn {
             background: var(--success-gradient);
             color: white;
@@ -174,12 +153,10 @@
             width: 100%;
             margin-top: auto;
         }
-
         .adopt-btn:hover {
             filter: brightness(1.1);
             transform: translateY(-2px);
         }
-        
         #no-results {
             text-align: center;
             padding: 3rem;
@@ -187,7 +164,6 @@
             color: var(--text-light);
             display: none;
         }
-
         footer {
             background: var(--text-dark);
             color: white;
@@ -195,7 +171,6 @@
             padding: 1.5rem;
             margin-top: 3rem;
         }
-
         /* Modal Styles */
         .modal {
             display: none;
@@ -209,7 +184,6 @@
             background-color: rgba(0, 0, 0, 0.6);
             animation: fadeIn 0.3s ease;
         }
-
         .modal-content {
             background-color: #fefefe;
             margin: 10% auto;
@@ -222,7 +196,6 @@
             position: relative;
             animation: slideIn 0.4s ease;
         }
-
         .close-btn {
             color: #aaa;
             position: absolute;
@@ -232,25 +205,21 @@
             font-weight: bold;
             cursor: pointer;
         }
-
         .close-btn:hover,
         .close-btn:focus {
             color: black;
         }
-        
         #modal-dog-name {
             color: var(--primary-color);
         }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🐾 NYC Pawsome Rescue</h1>
+    <h1>🐾 Galactics Dog Rescue</h1>
     <p>Your new best friend is waiting. Find them today!</p>
 </header>
 
@@ -280,15 +249,6 @@
                     <option value="large">Large (61+ lbs)</option>
                 </select>
             </div>
-            <div class="filter-group">
-                <label for="sort-filter">Sort By</label>
-                <select id="sort-filter">
-                    <option value="default">Default</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="age-asc">Age: Low to High</option>
-                    <option value="age-desc">Age: High to Low</option>
-                </select>
-            </div>
         </form>
         
         <div class="dogs-grid" id="dogs-grid">
@@ -311,7 +271,7 @@
 </div>
 
 <footer>
-    <p>&copy; <span id="year"></span> NYC Pawsome Rescue. All Rights Reserved.</p>
+    <p>&copy; <span id="year"></span> Galactics Dog Rescue. All Rights Reserved.</p>
 </footer>
 
 <script>
@@ -333,7 +293,6 @@
         const searchInput = document.getElementById('search-input');
         const ageFilter = document.getElementById('age-filter');
         const sizeFilter = document.getElementById('size-filter');
-        const sortFilter = document.getElementById('sort-filter');
         const noResultsMsg = document.getElementById('no-results');
         const modal = document.getElementById('adoption-modal');
         const modalDogName = document.getElementById('modal-dog-name');
@@ -374,12 +333,11 @@
             }
         };
         
-        // --- FILTERING AND SORTING LOGIC ---
+        // --- FILTERING LOGIC ---
         const applyFilters = () => {
             const searchTerm = searchInput.value.toLowerCase();
             const age = ageFilter.value;
             const size = sizeFilter.value;
-            const sortBy = sortFilter.value;
 
             let filteredDogs = dogData.filter(dog => {
                 // Search filter
@@ -400,18 +358,9 @@
                 return matchesSearch && matchesAge && matchesSize;
             });
 
-            // Sorting logic
-            if (sortBy === 'name') {
-                filteredDogs.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (sortBy === 'age-asc') {
-                filteredDogs.sort((a, b) => a.age - b.age);
-            } else if (sortBy === 'age-desc') {
-                filteredDogs.sort((a, b) => b.age - a.age);
-            }
-
             renderDogs(filteredDogs);
         };
-
+        
         // --- MODAL LOGIC ---
         const openModal = (dogId) => {
             const dog = dogData.find(d => d.id === parseInt(dogId));
@@ -429,7 +378,6 @@
         searchInput.addEventListener('input', applyFilters);
         ageFilter.addEventListener('change', applyFilters);
         sizeFilter.addEventListener('change', applyFilters);
-        sortFilter.addEventListener('change', applyFilters);
         
         dogGrid.addEventListener('click', (e) => {
             if (e.target.classList.contains('adopt-btn')) {
